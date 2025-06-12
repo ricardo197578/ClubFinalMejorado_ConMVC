@@ -77,9 +77,9 @@ __ Views/Forms/
 └── Program.cs
 
 
+PARA COMPILAR
 
-
-
+"C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe" /target:winexe /out:ClubDeportivoFinal.exe /recurse:*.cs /reference:System.Core.dll,System.Windows.Forms.dll,System.Drawing.dll,System.Data.SQLite.dll
 
 
 

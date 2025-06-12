@@ -6,6 +6,7 @@ using ClubMinimal.Models;
 
 namespace ClubMinimal.Views.Forms
 {
+    
     public class NoSocioForm : Form
     {
         private readonly NoSocioService _noSocioService;
