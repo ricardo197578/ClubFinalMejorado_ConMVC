@@ -1,0 +1,87 @@
+ClubManagement/
+│
+├── DataAccess/               # Capa de acceso a datos
+│   ├── DatabaseHelper.cs      # Clase base de conexión a BD
+│   └── Repositories/         # Implementaciones concretas de repositorios
+│       ├── AptoFisicoRepository.cs
+│       ├── CarnetRepository.cs
+│       ├── MembresiaRepository.cs
+│       └── SocioRepository.cs
+│
+├── Models/                   # Entidades del dominio
+│   ├── AptoFisico.cs
+│   ├── Carnet.cs
+│   ├── Socio.cs
+│   └── TiposMembresia/       # Jerarquía de tipos de membresía
+│       ├── TipoMembresia.cs  # Clase abstracta base
+│       ├── MembresiaStandard.cs
+│       ├── MembresiaPremium.cs
+│       └── MembresiaFamiliar.cs
+│
+├── Services/                 # Lógica de negocio
+│   ├── AptoFisicoService.cs
+│   ├── CarnetService.cs
+│   ├── MembresiaService.cs
+│   └── SocioService.cs
+│
+├── Interfaces/               # Contratos de interfaces
+│   ├── Repositories/
+│   │   ├── IAptoFisicoRepository.cs
+│   │   ├── ICarnetRepository.cs
+│   │   ├── IMembresiaRepository.cs
+│   │   └── ISocioRepository.cs
+│   └── Services/
+│       ├── IAptoFisicoService.cs
+│       ├── ICarnetService.cs
+│       ├── IMembresiaService.cs
+│       └── ISocioService.cs
+│
+├── Factories/                # Patrones de creación
+│   └── MembresiaFactory.cs   # Factory de tipos de membresía
+│
+├── Views/                    # Capa de presentación (Forms)
+│   ├── RegistrarSocioForm.cs
+│   └── ... (otros formularios)
+│
+└── Program.cs                # Punto de entrada principal
+
+
+para entender
+ClubMinimal/
+├── Models/
+│   Persona.cs
+│   Socio.cs
+    NoSocio.cs
+ 
+├── Interfaces/
+│   ISocioRepository.cs
+│   ISocioService.cs
+    INoSocioRepository.cs
+    INoSocioService.cs
+
+├── Repositories/
+│   SocioRepository.cs
+    NoSocioRepository.cs
+
+├── Services/
+│   SocioService.cs
+    NoSocioService.cs
+	
+__ Views/Forms/
+    MenuPrincipalForm.cs
+    NoSocioForm.cs
+    SocioFor.cs		
+
+
+├── DatabaseHelper.cs
+└── Program.cs
+
+
+
+
+
+
+
+
+
+
