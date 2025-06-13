@@ -1,50 +1,41 @@
-ClubManagement/
-│
-├── DataAccess/               # Capa de acceso a datos
-│   ├── DatabaseHelper.cs      # Clase base de conexión a BD
-│   └── Repositories/         # Implementaciones concretas de repositorios
-│       ├── AptoFisicoRepository.cs
-│       ├── CarnetRepository.cs
-│       ├── MembresiaRepository.cs
-│       └── SocioRepository.cs
-│
-├── Models/                   # Entidades del dominio
-│   ├── AptoFisico.cs
-│   ├── Carnet.cs
-│   ├── Socio.cs
-│   └── TiposMembresia/       # Jerarquía de tipos de membresía
-│       ├── TipoMembresia.cs  # Clase abstracta base
-│       ├── MembresiaStandard.cs
-│       ├── MembresiaPremium.cs
-│       └── MembresiaFamiliar.cs
-│
-├── Services/                 # Lógica de negocio
-│   ├── AptoFisicoService.cs
-│   ├── CarnetService.cs
-│   ├── MembresiaService.cs
-│   └── SocioService.cs
-│
-├── Interfaces/               # Contratos de interfaces
-│   ├── Repositories/
-│   │   ├── IAptoFisicoRepository.cs
-│   │   ├── ICarnetRepository.cs
-│   │   ├── IMembresiaRepository.cs
-│   │   └── ISocioRepository.cs
-│   └── Services/
-│       ├── IAptoFisicoService.cs
-│       ├── ICarnetService.cs
-│       ├── IMembresiaService.cs
-│       └── ISocioService.cs
-│
-├── Factories/                # Patrones de creación
-│   └── MembresiaFactory.cs   # Factory de tipos de membresía
-│
-├── Views/                    # Capa de presentación (Forms)
-│   ├── RegistrarSocioForm.cs
-│   └── ... (otros formularios)
-│
-└── Program.cs                # Punto de entrada principal
+Explicación del Patrón Actual
+Tu aplicación sigue una arquitectura por capas con:
 
+Models: Clases que representan entidades del negocio (como NoSocio)
+
+Contienen propiedades y herencia (Persona → NoSocio)
+
+Son objetos simples (POCOs) sin lógica de negocio
+
+Interfaces: Definen contratos (qué operaciones se pueden realizar)
+
+INoSocioRepository: Operaciones de persistencia (CRUD)
+
+INoSocioService: Operaciones de negocio (más alto nivel)
+
+Repositories: Implementan la persistencia (SQLite en tu caso)
+
+NoSocioRepository: Maneja directamente la base de datos
+
+Hereda de INoSocioRepository
+
+Services: Implementan la lógica de negocio
+
+NoSocioService: Coordina operaciones, puede agregar validaciones
+
+Usa el Repository para persistencia
+
+Hereda de INoSocioService
+
+Views/Forms: Interfaz de usuario
+
+NoSocioForm: Usa el Service para operaciones
+
+No interactúa directamente con el Repository
+
+Form → Service → Repository → SQLite Database
+           ↑
+        Business Logic
 
 para entender
 ClubMinimal/

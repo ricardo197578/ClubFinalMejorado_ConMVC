@@ -12,6 +12,7 @@ namespace ClubMinimal.Views.Forms
         private readonly NoSocioService _noSocioService;
         private readonly TextBox txtNombre;
         private readonly TextBox txtApellido;
+        private readonly TextBox txtDni;//para dni
         private readonly ListBox listBox;
 
         public NoSocioForm()
@@ -27,9 +28,10 @@ namespace ClubMinimal.Views.Forms
             var repo = new NoSocioRepository(dbHelper);
             _noSocioService = new NoSocioService(repo);
 
-            // Initialize readonly fields here
+            // Inicializacion
             txtNombre = new TextBox();
             txtApellido = new TextBox();
+            txtDni = new TextBox();//nuevo
             listBox = new ListBox();
 
             // Crear controles
@@ -47,8 +49,13 @@ namespace ClubMinimal.Views.Forms
             txtApellido.Top = 60;
             txtApellido.Width = 300;
 
+            //nuevo
+            txtDni.Left = 120;
+            txtDni.Top = 100;
+            txtDni.Width = 300;
+
             listBox.Left = 20;
-            listBox.Top = 180;
+            listBox.Top = 250;
             listBox.Width = 400;
             listBox.Height = 200;
             listBox.Font = new System.Drawing.Font("Consolas", 9.75f);
@@ -71,12 +78,22 @@ namespace ClubMinimal.Views.Forms
                 Width = 80
             };
 
+            //nuevo para Dni
+            var lblDni = new Label
+            {
+                Text = "Dni",
+                Left = 20,
+                Top = 100,
+                Width = 80
+            };
+
+
             // Botones
             var btnGuardar = new Button
             {
                 Text = "Registrar No Socio",
                 Left = 120,
-                Top = 100,
+                Top = 140,
                 Width = 150
             };
 
@@ -84,7 +101,7 @@ namespace ClubMinimal.Views.Forms
             {
                 Text = "Listar No Socios",
                 Left = 120,
-                Top = 140,
+                Top = 180,
                 Width = 150
             };
 
@@ -97,34 +114,45 @@ namespace ClubMinimal.Views.Forms
             {
                 lblNombre, txtNombre,
                 lblApellido, txtApellido,
+                lblDni , txtDni,
                 btnGuardar, btnListar,
                 listBox
             });
         }
 
+       
+          
+
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtApellido.Text))
+                // Validación completa de todos los campos requeridos
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                   string.IsNullOrWhiteSpace(txtApellido.Text) ||
+                   string.IsNullOrWhiteSpace(txtDni.Text))
                 {
-                    MessageBox.Show("Debe completar nombre y apellido", "Advertencia",
+                    MessageBox.Show("Debe completar nombre, apellido y DNI", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                _noSocioService.RegistrarNoSocio(txtNombre.Text, txtApellido.Text);
+                
+         // Registrar con todos los datos
+        _noSocioService.RegistrarNoSocio(txtNombre.Text, txtApellido.Text, txtDni.Text);
 
                 MessageBox.Show("No Socio registrado exitosamente", "Éxito",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Limpiar campos
                 txtNombre.Clear();
                 txtApellido.Clear();
+                txtDni.Clear();
                 txtNombre.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Error al registrar: {0}", ex.Message),
+                MessageBox.Show(string.Format("Error al registrar:{0}", ex.Message),
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

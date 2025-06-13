@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ClubMinimal.Interfaces;
 using ClubMinimal.Models;
@@ -15,15 +16,24 @@ namespace ClubMinimal.Services
             _repository = repository;
         }
 
-        public void RegistrarNoSocio(string nombre, string apellido)
+        public void RegistrarNoSocio(string nombre, string apellido, string dni)
         {
-            var noSocio = new NoSocio { Nombre = nombre, Apellido = apellido };
+            var noSocio = new NoSocio { Nombre = nombre, Apellido = apellido ,Dni = dni };
             _repository.Agregar(noSocio);
         }
 
         public List<NoSocio> ObtenerNoSocios()
         {
             return _repository.ObtenerTodos();
+        }
+
+        // En tu NoSocioService.cs
+        public NoSocio BuscarPorDni(string dni)
+        {
+            if (string.IsNullOrWhiteSpace(dni))
+                throw new ArgumentException("El DNI no puede estar vacío");
+
+            return _repository.BuscarPorDni(dni); // Asegúrate que este método exista en tu repositorio
         }
     }
 }
