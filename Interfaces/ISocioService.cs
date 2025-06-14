@@ -6,7 +6,9 @@ namespace ClubMinimal.Interfaces
 {
     public interface ISocioService
     {
-        void RegistrarSocio(string nombre, string apellido);
+         void RegistrarSocio(Socio socio);  // Cambiar la firma
+        //void RegistrarSocio(string nombre, string apellido);
         List<Socio> ObtenerSocios();
+	Socio ObtenerPorId(int id);  
     }
 }

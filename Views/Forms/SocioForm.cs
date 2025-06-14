@@ -99,23 +99,23 @@ namespace ClubMinimal.Views.Forms
             });
         }
 
-        private void BtnGuardar_Click(object sender, EventArgs e)
+           private void BtnGuardar_Click(object sender, EventArgs e)
+{
+    if (!string.IsNullOrWhiteSpace(txtNombre.Text) && !string.IsNullOrWhiteSpace(txtApellido.Text))
+    {
+        var socio = new Socio
         {
-            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && !string.IsNullOrWhiteSpace(txtApellido.Text))
-            {
-                var socio = new Socio
-                {
-                    Nombre = txtNombre.Text,
-                    Apellido = txtApellido.Text,
-                    AptoFisicoAprobado = chkAptoFisico.Checked
-                };
-
-                _socioService.RegistrarSocio(socio);
-                MessageBox.Show("Socio registrado!");
-                LimpiarFormulario();
-                BtnListar_Click(sender, e); // Actualizar la lista
-            }
-        }
+            Nombre = txtNombre.Text,
+            Apellido = txtApellido.Text,
+            AptoFisicoAprobado = chkAptoFisico.Checked
+        };
+        
+        _socioService.RegistrarSocio(socio);
+        MessageBox.Show("Socio registrado!");
+        LimpiarFormulario();
+        BtnListar_Click(sender, e);
+    }
+}
 
         private void BtnListar_Click(object sender, EventArgs e)
         {
@@ -128,16 +128,19 @@ namespace ClubMinimal.Views.Forms
         }
 
         private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _socioSeleccionado = listBox.SelectedItem as Socio;
-            if (_socioSeleccionado != null)
-            {
-                txtNombre.Text = _socioSeleccionado.Nombre;
-                txtApellido.Text = _socioSeleccionado.Apellido;
-                chkAptoFisico.Checked = _socioSeleccionado.AptoFisicoAprobado;
-                btnEntregarCarnet.Enabled = _socioSeleccionado.AptoFisicoAprobado;
-            }
-        }
+{
+    _socioSeleccionado = listBox.SelectedItem as Socio;
+    if (_socioSeleccionado != null)
+    {
+        txtNombre.Text = _socioSeleccionado.Nombre;
+        txtApellido.Text = _socioSeleccionado.Apellido;
+        chkAptoFisico.Checked = _socioSeleccionado.AptoFisicoAprobado;
+        btnEntregarCarnet.Enabled = _socioSeleccionado.AptoFisicoAprobado;
+        
+        // Actualizar el socio en el servicio para asegurar que tenemos los datos correctos
+        _socioSeleccionado = _socioService.ObtenerPorId(_socioSeleccionado.Id);
+    }
+}
 
         private void BtnEntregarCarnet_Click(object sender, EventArgs e)
         {

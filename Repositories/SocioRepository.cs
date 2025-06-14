@@ -49,5 +49,22 @@ namespace ClubMinimal.Repositories
             }
             return socios;
         }
+
+        public Socio ObtenerPorId(int id)
+        {
+            var sql = "SELECT Id, Nombre, Apellido FROM Socios WHERE Id = @id";
+            var dt = _dbHelper.ExecuteQuery(sql, new SQLiteParameter("@id", id));
+            
+            if (dt.Rows.Count == 0)
+                return null;
+            
+            var row = dt.Rows[0];
+            return new Socio
+            {
+                Id = (int)(long)row["Id"],
+                Nombre = row["Nombre"].ToString(),
+                Apellido = row["Apellido"].ToString()
+            };
+        }
     }
 }

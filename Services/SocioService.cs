@@ -33,11 +33,13 @@ namespace ClubMinimal.Services
 
 
         // Método para registrar un socio
-        public void RegistrarSocio(string nombre, string apellido)
-        {
-            var socio = new Socio { Nombre = nombre, Apellido = apellido };
-            _repository.Agregar(socio);
-        }
+
+		// En SocioService.cs
+public void RegistrarSocio(Socio socio)
+{
+    _repository.Agregar(socio);
+}
+       
         /*
          * Qué hace:
 
@@ -52,5 +54,10 @@ namespace ClubMinimal.Services
         {
             return _repository.ObtenerTodos();
         }
+
+	public Socio ObtenerPorId(int id)
+{
+    return _repository.ObtenerPorId(id);
+}
     }
 }

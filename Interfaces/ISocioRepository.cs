@@ -7,5 +7,6 @@ namespace ClubMinimal.Interfaces
     {
         void Agregar(Socio socio);
         List<Socio> ObtenerTodos();
+	 Socio ObtenerPorId(int id);
     }
 }

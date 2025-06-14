@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ClubMinimal.Models;
-using ClubMinimal.Services;
+using ClubMinimal.Interfaces;
 
 namespace ClubMinimal.Views.Forms
 {
